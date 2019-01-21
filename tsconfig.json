@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "gen-io-ts": [
+        "dist/gen-io-ts"
+      ],
+      "gen-io-ts/*": [
+        "dist/gen-io-ts/*"
+      ]
+    }
   }
 }

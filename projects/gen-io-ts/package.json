@@ -1,0 +1,7 @@
+{
+  "name": "@orchestrator/gen-io-ts",
+  "version": "0.0.0-develop",
+  "dependencies": {
+    "io-ts": "1.6.4"
+  }
+}
