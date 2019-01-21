@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
+    "build": "ng build gen-io-ts",
+    "test": "ng test gen-io-ts",
+    "lint": "ng lint gen-io-ts",
     "e2e": "ng e2e"
   },
   "private": true,
