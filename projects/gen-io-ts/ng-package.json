@@ -2,6 +2,11 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/gen-io-ts",
   "lib": {
-    "entryFile": "src/public_api.ts"
-  }
+    "entryFile": "src/public_api.ts",
+    "umdId": "orchestrator.genIoTs",
+    "umdModuleIds": {
+      "io-ts": "ioTs"
+    }
+  },
+  "whitelistedNonPeerDependencies": ["io-ts"]
 }

@@ -2,7 +2,7 @@ import { AnyOf, AsRuntimeType, RuntimeType, TypeOf } from './runtime-types';
 import { Type } from './types';
 import { isBuiltinType, isPrimitive } from './util';
 
-const Reflect = (global as any).Reflect;
+const Reflect = (window as any).Reflect;
 
 const propMetaKey = '__PROPERTY_META__';
 
