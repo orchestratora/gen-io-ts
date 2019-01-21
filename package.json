@@ -1,6 +1,10 @@
 {
   "name": "@orchestrator/gen-io-ts",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orchestratora/gen-io-ts.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

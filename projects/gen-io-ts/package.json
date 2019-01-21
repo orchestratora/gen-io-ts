@@ -1,6 +1,21 @@
 {
   "name": "@orchestrator/gen-io-ts",
   "version": "0.0.0-develop",
+  "description": "Generate io-ts codecs for classes by decorating props",
+  "maintainers": [
+    "Alex Malkevich <malkevich.alex@gmail.com>"
+  ],
+  "keywords": [
+    "io-ts",
+    "generate",
+    "types",
+    "validation",
+    "runtime"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orchestratora/gen-io-ts.git"
+  },
   "dependencies": {
     "io-ts": "1.6.4"
   }
