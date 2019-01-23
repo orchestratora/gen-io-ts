@@ -9,7 +9,7 @@ export function isFunction(obj: any): obj is Function {
 }
 
 export function isObject(obj: any): obj is Object {
-  return !!obj && typeof obj === 'object';
+  return !!obj && typeof obj === 'object' && !Array.isArray(obj);
 }
 
 export function isBuiltinType(type: any): boolean {
