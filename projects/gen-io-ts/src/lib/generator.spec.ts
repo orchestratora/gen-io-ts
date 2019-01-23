@@ -1,3 +1,4 @@
+import * as t from 'io-ts';
 import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 
 import { Property } from './decorators';
@@ -70,5 +71,35 @@ describe('genIoType() function', () => {
     const res = myClassType.decode({});
 
     expect(() => ThrowReporter.report(res)).toThrow();
+  });
+
+  describe('custom type factory', () => {
+    it('should override default type', () => {
+      class MyClass {
+        @Property({ typeFactory: () => t.boolean })
+        prop1: string;
+      }
+
+      const myClassType = genIoType(MyClass);
+      const valid = myClassType.decode({ prop1: true });
+      const invalid = myClassType.decode({ prop1: 'why?' });
+
+      expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
+
+    it('should enhance default type', () => {
+      class MyClass {
+        @Property({ typeFactory: type => t.refinement(type, str => str.length > 1, 'NotEmpty') })
+        prop1: string;
+      }
+
+      const myClassType = genIoType(MyClass);
+      const valid = myClassType.decode({ prop1: 'good' });
+      const invalid = myClassType.decode({ prop1: '' });
+
+      expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
   });
 });

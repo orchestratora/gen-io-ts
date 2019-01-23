@@ -12,13 +12,18 @@ export function genIoType<T>(type: Type<T>): t.Type<T> {
 function genTypeFor(obj: any, name?: string): t.Type<any> {
   const type = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj.meta : obj;
   const metadata = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj : null;
-  const codec = genCodecType(type, name);
 
-  if (metadata && metadata.isRequired) {
-    return codec;
+  let codec = genCodecType(type, name);
+
+  if (metadata && !metadata.isRequired) {
+    codec = t.union([codec, t.null, t.undefined]);
   }
 
-  return t.union([codec, t.null, t.undefined]);
+  if (metadata && metadata.typeFactory) {
+    codec = metadata.typeFactory(codec);
+  }
+
+  return codec;
 }
 
 function genCodecType(type: any, name?: string) {

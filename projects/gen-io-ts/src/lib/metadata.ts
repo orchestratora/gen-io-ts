@@ -1,13 +1,20 @@
+import * as t from 'io-ts';
+
 import { AnyOf, AsRuntimeType, RuntimeType, TypeOf } from './runtime-types';
-import { StringHashMap, Type } from './types';
-import { isBuiltinType, isPrimitive } from './util';
+import { MapTo, StringHashMap, Type } from './types';
+import { chainFns, identity, isBuiltinType, isPrimitive } from './util';
 
 const Reflect = (window as any).Reflect;
 
 const propMetaKey = '__PROPERTY_META__';
 
+export interface TypeFactory<T> {
+  (type: t.Type<T>): t.Type<T>;
+}
+
 export interface TypeMetadata<T extends RuntimeType> {
   type?: T;
+  typeFactory?: TypeFactory<T>;
   isRequired?: boolean;
 }
 
@@ -18,10 +25,14 @@ export class ResolvedTypeMetadata<T> implements TypeMetadata<T> {
     return !!obj && obj instanceof ResolvedTypeMetadata;
   }
 
-  constructor(public type: T, public isRequired = false) {}
+  constructor(
+    public type: T,
+    public isRequired = false,
+    public typeFactory: TypeFactory<T> = identity,
+  ) {}
 }
 
-export function resolveMetadataOf<T>(type: Type<T>): StringHashMap<ResolvedTypeMetadata<T>> {
+export function resolveMetadataOf<T>(type: Type<T>): MapTo<T, ResolvedTypeMetadata<T>> {
   return resolveMetaRecursive(type);
 }
 
@@ -47,7 +58,7 @@ function resolveMetaRecursive(obj: any) {
   if (typeof metaInfo === 'object') {
     Object.keys(metaInfo).forEach(key => {
       const meta = metaInfo[key];
-      const metadata = new ResolvedTypeMetadata(meta.type, meta.isRequired);
+      const metadata = new ResolvedTypeMetadata(meta.type, meta.isRequired, meta.typeFactory);
       metadata.meta = resolveMetaRecursive(meta.type);
       metaInfo[key] = metadata;
     });
@@ -85,8 +96,12 @@ export function readPropType(target: Object, prop: string | symbol): any {
 }
 
 export function mergePropertyMeta<T>(
-  meta1: TypeMetadata<T>,
-  meta2: TypeMetadata<T>,
+  meta1: TypeMetadata<T> = {},
+  meta2: TypeMetadata<T> = {},
 ): TypeMetadata<T> {
-  return { ...meta1, ...meta2 };
+  return {
+    ...meta1,
+    ...meta2,
+    typeFactory: chainFns(meta1.typeFactory, meta2.typeFactory),
+  };
 }
