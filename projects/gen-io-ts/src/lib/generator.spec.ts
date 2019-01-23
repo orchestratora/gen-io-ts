@@ -3,7 +3,7 @@ import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 import { Property } from './decorators';
 import { genIoType } from './generator';
 
-describe('genIoType() function', () => {
+fdescribe('genIoType() function', () => {
   it('should not validate non-annotated class', () => {
     class MyClass {
       prop1: string;

@@ -1,6 +1,5 @@
-import { setPropertyType } from './metadata';
-import { RuntimeType } from './runtime-types';
+import { setPropertyType, TypeMetadata } from './metadata';
 
-export function Property(customType?: RuntimeType): PropertyDecorator {
-  return (target, prop) => setPropertyType(target, prop, customType);
+export function Property(options?: TypeMetadata<any>): PropertyDecorator {
+  return (target, prop) => setPropertyType(target, prop, options);
 }
