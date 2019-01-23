@@ -73,7 +73,7 @@ export function setPropertyType(
 
   const type = options.type || new TypeOf(readPropType(target, prop));
 
-  types[prop] = { ...options, type };
+  types[prop] = mergePropertyMeta(types[prop], { ...options, type });
 }
 
 export function getPropertyTypes<T>(target: Type<T>): StringHashMap<TypeMetadata<T>> {
@@ -82,4 +82,11 @@ export function getPropertyTypes<T>(target: Type<T>): StringHashMap<TypeMetadata
 
 export function readPropType(target: Object, prop: string | symbol): any {
   return Reflect.getMetadata('design:type', target, prop);
+}
+
+export function mergePropertyMeta<T>(
+  meta1: TypeMetadata<T>,
+  meta2: TypeMetadata<T>,
+): TypeMetadata<T> {
+  return { ...meta1, ...meta2 };
 }

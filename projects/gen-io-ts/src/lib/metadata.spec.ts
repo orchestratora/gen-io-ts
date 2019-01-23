@@ -30,4 +30,26 @@ describe('resolveMetadataOf() function', () => {
       }),
     } as any);
   });
+
+  describe('multiple @Property', () => {
+    it('should merge normal properties', () => {
+      class MyClass {
+        @Property({ type: Boolean })
+        @Property({ isRequired: true })
+        @Property({ isRequired: false })
+        @Property()
+        prop1: string;
+      }
+
+      const meta = resolveMetadataOf(MyClass);
+
+      expect(meta).toBeTruthy();
+      expect(meta).toEqual({
+        prop1: jasmine.objectContaining({
+          isRequired: true,
+          meta: Boolean,
+        }),
+      } as any);
+    });
+  });
 });
