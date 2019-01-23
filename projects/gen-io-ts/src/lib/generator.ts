@@ -4,6 +4,12 @@ import { ResolvedTypeMetadata, resolveMetadataOf } from './metadata';
 import { Primitive, Type } from './types';
 import { isBuiltinType, isObject, isPrimitive } from './util';
 
+/**
+ * Generate `io-ts` codec for `type`
+ *
+ * To validate runtime object call `.validate(...)` on it
+ * @see https://github.com/gcanti/io-ts#the-idea - How to use codecs
+ */
 export function genIoType<T>(type: Type<T>): t.Type<T> {
   const metadata = resolveMetadataOf(type);
   return genTypeFor(metadata, type.name);

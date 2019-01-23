@@ -32,6 +32,10 @@ export class ResolvedTypeMetadata<T> implements TypeMetadata<T> {
   ) {}
 }
 
+/**
+ * Resolves full metadata on `type`
+ * @internal
+ */
 export function resolveMetadataOf<T>(type: Type<T>): MapTo<T, ResolvedTypeMetadata<T>> {
   return resolveMetaRecursive(type);
 }
