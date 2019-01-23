@@ -9,7 +9,7 @@ describe('resolveMetadataOf() function', () => {
       prop1: boolean;
       @Property()
       prop2: number;
-      @Property(new AnyOf('lol', 'd'))
+      @Property({ type: new AnyOf('lol', 'd') })
       prop3: string[];
     }
     class MyClass {
@@ -21,11 +21,13 @@ describe('resolveMetadataOf() function', () => {
 
     expect(meta).toBeTruthy();
     expect(meta).toEqual({
-      prop4: {
-        prop1: Boolean,
-        prop2: Number,
-        prop3: ['lol', 'd'],
-      },
+      prop4: jasmine.objectContaining({
+        meta: {
+          prop1: jasmine.objectContaining({ meta: Boolean }),
+          prop2: jasmine.objectContaining({ meta: Number }),
+          prop3: jasmine.objectContaining({ meta: ['lol', 'd'] }),
+        },
+      }),
     } as any);
   });
 });

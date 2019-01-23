@@ -3,7 +3,7 @@ import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 import { Property } from './decorators';
 import { genIoType } from './generator';
 
-fdescribe('genIoType() function', () => {
+describe('genIoType() function', () => {
   it('should not validate non-annotated class', () => {
     class MyClass {
       prop1: string;
@@ -40,6 +40,34 @@ fdescribe('genIoType() function', () => {
 
     const myClassType = genIoType(MyClass);
     const res = myClassType.decode({ prop1: 0, prop2: 'not ok' });
+
+    expect(() => ThrowReporter.report(res)).toThrow();
+  });
+
+  it('should pass validation on non required props', () => {
+    class MyClass {
+      @Property()
+      prop1: string;
+      @Property()
+      prop2: number;
+    }
+
+    const myClassType = genIoType(MyClass);
+    const res = myClassType.decode({});
+
+    expect(() => ThrowReporter.report(res)).not.toThrow();
+  });
+
+  it('should fail validation on required props', () => {
+    class MyClass {
+      @Property({ isRequired: true })
+      prop1: string;
+      @Property()
+      prop2: number;
+    }
+
+    const myClassType = genIoType(MyClass);
+    const res = myClassType.decode({});
 
     expect(() => ThrowReporter.report(res)).toThrow();
   });
