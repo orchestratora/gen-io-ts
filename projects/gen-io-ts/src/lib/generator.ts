@@ -6,12 +6,11 @@ import { isBuiltinType, isObject, isPrimitive } from './util';
 
 export function genIoType<T>(type: Type<T>): t.Type<T> {
   const metadata = resolveMetadataOf(type);
-  console.log(metadata);
   return genTypeFor(metadata, type.name);
 }
 
 function genTypeFor(obj: any, name?: string): t.Type<any> {
-  const type = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj.type : obj;
+  const type = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj.meta : obj;
   const metadata = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj : null;
   const codec = genCodecType(type, name);
 

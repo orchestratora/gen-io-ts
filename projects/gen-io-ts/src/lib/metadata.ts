@@ -12,11 +12,12 @@ export interface TypeMetadata<T extends RuntimeType> {
 }
 
 export class ResolvedTypeMetadata<T> implements TypeMetadata<T> {
+  meta: AsRuntimeType<T> = {} as any;
+
   static isResolvedMetadata(obj: any): obj is ResolvedTypeMetadata<any> {
     return !!obj && obj instanceof ResolvedTypeMetadata;
   }
 
-  meta: AsRuntimeType<T> = {} as any;
   constructor(public type: T, public isRequired = false) {}
 }
 
@@ -38,7 +39,6 @@ function resolveMetaRecursive(obj: any) {
   }
 
   const metaInfo = getPropertyTypes(obj);
-  console.log(metaInfo);
 
   if (!metaInfo) {
     return Object;
