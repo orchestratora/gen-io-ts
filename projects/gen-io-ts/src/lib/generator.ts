@@ -1,37 +1,42 @@
 import * as t from 'io-ts';
 
-import { resolveMetadataOf } from './metadata';
+import { ResolvedTypeMetadata, resolveMetadataOf } from './metadata';
 import { Primitive, Type } from './types';
 import { isBuiltinType, isObject, isPrimitive } from './util';
 
 export function genIoType<T>(type: Type<T>): t.Type<T> {
   const metadata = resolveMetadataOf(type);
+  console.log(metadata);
   return genTypeFor(metadata, type.name);
 }
 
 function genTypeFor(obj: any, name?: string): t.Type<any> {
-  if (isPrimitive(obj)) {
-    return genLiteralType(obj, name);
+  const type = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj.type : obj;
+  const metadata = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj : null;
+  const codec = genCodecType(type, name);
+
+  if (metadata && metadata.isRequired) {
+    return codec;
   }
 
-  if (isBuiltinType(obj)) {
-    return genBuiltinType(obj, name);
+  return t.union([codec, t.null, t.undefined]);
+}
+
+function genCodecType(type: any, name?: string) {
+  if (isPrimitive(type)) {
+    return genLiteralType(type, name);
   }
 
-  if (obj === Array) {
-    return t.array(t.any as any, name);
+  if (isBuiltinType(type)) {
+    return genBuiltinType(type, name);
   }
 
-  if (obj === Object) {
-    return t.any;
+  if (Array.isArray(type)) {
+    return genArrayType(type, name);
   }
 
-  if (Array.isArray(obj)) {
-    return genArrayType(obj, name);
-  }
-
-  if (isObject(obj)) {
-    return genObjectType(obj, name);
+  if (isObject(type)) {
+    return genObjectType(type, name);
   }
 }
 
