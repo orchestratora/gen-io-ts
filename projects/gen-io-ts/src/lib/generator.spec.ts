@@ -73,6 +73,22 @@ describe('genIoType() function', () => {
     expect(() => ThrowReporter.report(res)).toThrow();
   });
 
+  describe('custom type', () => {
+    it('should override default type', () => {
+      class MyClass {
+        @Property({ type: Boolean })
+        prop1: string;
+      }
+
+      const myClassType = genIoType(MyClass);
+      const valid = myClassType.decode({ prop1: true });
+      const invalid = myClassType.decode({ prop1: 'why?' });
+
+      expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
+  });
+
   describe('custom type factory', () => {
     it('should override default type', () => {
       class MyClass {
