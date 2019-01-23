@@ -1,6 +1,7 @@
 import * as t from 'io-ts';
 
 import { AnyOf, AsRuntimeType, RuntimeType, TypeOf } from './runtime-types';
+import { typeOf } from './type-factories';
 import { MapTo, StringHashMap, Type } from './types';
 import { chainFns, identity, isBuiltinType, isPrimitive } from './util';
 
@@ -86,7 +87,7 @@ export function setPropertyType(
 
   const types = target[propMetaKey];
 
-  const type = options.type || new TypeOf(readPropType(target, prop));
+  const type = options.type || typeOf(readPropType(target, prop));
 
   types[prop] = mergePropertyMeta(types[prop], { ...options, type });
 }
