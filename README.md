@@ -48,6 +48,71 @@ import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 ThrowReporter.report(myClassType.decode({...})); // This will throw errors
 ```
 
+**NOTE**: By default every property is optional.
+To change it - see [Required property section](#required-property).
+
+## Advanced usage
+
+### Required property
+
+Every property is configured to be NOT required, which means you can assign
+`null/undefined` values and validation will not fail.
+
+To change that set `isRequired` option to `true`:
+
+```ts
+import { Property } from '@orchestrator/gen-io-ts';
+
+class MyClass {
+  @Property({ isRequired: true }) // Will now fail if `null/undefined` was set
+  prop: string;
+}
+```
+
+### Custom type
+
+Allows to override default inferred type with custom:
+
+```ts
+import { Property } from '@orchestrator/gen-io-ts';
+
+class MyClass {
+  @Property({ type: typeOf(Boolean) }) // Will now allow only booleans instead of strings
+  prop: string;
+}
+```
+
+### Custom type factories
+
+Allows to override/adjust(refine) default type:
+
+```ts
+import * as t from 'io-ts';
+import { Property } from '@orchestrator/gen-io-ts';
+
+class MyClass {
+  @Property({ typeFactory: type => t.refine(type, str => str.length > 0, 'NotEmpty') }) // Will now allow only non empty strings
+  prop: string;
+}
+```
+
+_See: [`io-ts` Refinements](https://github.com/gcanti/io-ts#refinements) for more usage info._
+
+## Access `io-ts`
+
+If you need to access `io-ts` library but don't want to install it as a dependency
+you can import it from this library as a secondary entry-point:
+
+```ts
+import * as t from '@orchestrator/gen-io-ts/io-ts';
+
+t... // Now t is complete `io-ts` lib
+```
+
+_NOTE_: By default it will not be included in your bundle because it is
+shipped as a secondary entry point.
+It will be only included if you import it explicitly.
+
 ---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.

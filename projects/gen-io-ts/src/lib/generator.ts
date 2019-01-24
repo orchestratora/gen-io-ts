@@ -1,37 +1,52 @@
 import * as t from 'io-ts';
 
-import { resolveMetadataOf } from './metadata';
+import { ResolvedTypeMetadata, resolveMetadataOf } from './metadata';
 import { Primitive, Type } from './types';
 import { isBuiltinType, isObject, isPrimitive } from './util';
 
+/**
+ * Generate `io-ts` codec for `type`
+ *
+ * To validate runtime object call `.validate(...)` on it
+ * @see https://github.com/gcanti/io-ts#the-idea - How to use codecs
+ */
 export function genIoType<T>(type: Type<T>): t.Type<T> {
   const metadata = resolveMetadataOf(type);
   return genTypeFor(metadata, type.name);
 }
 
 function genTypeFor(obj: any, name?: string): t.Type<any> {
-  if (isPrimitive(obj)) {
-    return genLiteralType(obj, name);
+  const type = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj.meta : obj;
+  const metadata = ResolvedTypeMetadata.isResolvedMetadata(obj) ? obj : null;
+
+  let codec = genCodecType(type, name);
+
+  if (metadata && !metadata.isRequired) {
+    codec = t.union([codec, t.null, t.undefined]);
   }
 
-  if (isBuiltinType(obj)) {
-    return genBuiltinType(obj, name);
+  if (metadata && metadata.typeFactory) {
+    codec = metadata.typeFactory(codec);
   }
 
-  if (obj === Array) {
-    return t.array(t.any as any, name);
+  return codec;
+}
+
+function genCodecType(type: any, name?: string) {
+  if (isPrimitive(type)) {
+    return genLiteralType(type, name);
   }
 
-  if (obj === Object) {
-    return t.any;
+  if (isBuiltinType(type)) {
+    return genBuiltinType(type, name);
   }
 
-  if (Array.isArray(obj)) {
-    return genArrayType(obj, name);
+  if (Array.isArray(type)) {
+    return genArrayType(type, name);
   }
 
-  if (isObject(obj)) {
-    return genObjectType(obj, name);
+  if (isObject(type)) {
+    return genObjectType(type, name);
   }
 }
 

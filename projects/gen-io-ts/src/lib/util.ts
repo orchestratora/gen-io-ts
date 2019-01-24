@@ -24,3 +24,19 @@ export function isBuiltinType(type: any): boolean {
       type === Function)
   );
 }
+
+export function identity<T>(arg: T): T {
+  return arg;
+}
+
+export function chainFns<T extends Function>(fn1?: T, fn2?: T): T {
+  if (!isFunction(fn1)) {
+    return fn2;
+  }
+
+  if (!isFunction(fn2)) {
+    return fn1;
+  }
+
+  return ((...args) => fn2(fn1(...args))) as any;
+}
