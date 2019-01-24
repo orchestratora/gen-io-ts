@@ -1,21 +1,21 @@
 import { AnyOf, ArrayOf, TypeOf } from './runtime-types';
 
 /**
- * Represents a type in runtime
+ * Create instance of {@link TypeOf}
  */
 export function typeOf<T>(type: T) {
   return new TypeOf(type);
 }
 
 /**
- * Represents a set of allowed types in runtime
+ * Create instance of {@link AnyOf}
  */
 export function anyOf<T>(...types: T[]) {
   return new AnyOf(types);
 }
 
 /**
- * Represents array of single type in runtime
+ * Create instance of {@link ArrayOf}
  */
 export function arrayOf<T>(type: T) {
   return new ArrayOf(type);
