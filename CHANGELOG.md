@@ -1,5 +1,22 @@
 # GenIoTs - Changelog
 
+# [1.1.0](https://github.com/orchestratora/gen-io-ts/compare/v1.0.1...v1.1.0) (2019-01-24)
+
+
+### Bug Fixes
+
+* **types:** use type factories instead of classes ([cfc93ec](https://github.com/orchestratora/gen-io-ts/commit/cfc93ec))
+
+
+### Features
+
+* **decorator:** add type factory to `@Property` configuration ([aab5c01](https://github.com/orchestratora/gen-io-ts/commit/aab5c01))
+* **decorator:** capture extra metadata in @Property ([0e11243](https://github.com/orchestratora/gen-io-ts/commit/0e11243))
+* **decorator:** capture extra metadata in @Property ([cc89811](https://github.com/orchestratora/gen-io-ts/commit/cc89811))
+* **metadata:** allow to pass extra options via decorator ([268ce10](https://github.com/orchestratora/gen-io-ts/commit/268ce10))
+* **metadata:** allow to pass extra options via decorator ([41a3522](https://github.com/orchestratora/gen-io-ts/commit/41a3522))
+* **metadata:** merge config from @Property decorator ([80bccf2](https://github.com/orchestratora/gen-io-ts/commit/80bccf2))
+
 ## [1.0.1](https://github.com/orchestratora/gen-io-ts/compare/v1.0.0...v1.0.1) (2019-01-23)
 
 
