@@ -9,9 +9,7 @@ const Reflect = (window as any).Reflect;
 
 const propMetaKey = '__PROPERTY_META__';
 
-export interface TypeFactory<T> {
-  (type: t.Type<T>): t.Type<T>;
-}
+export type TypeFactory<T> = (type: t.Type<T>) => t.Type<T>;
 
 export interface TypeMetadata<T extends RuntimeType> {
   type?: T;
