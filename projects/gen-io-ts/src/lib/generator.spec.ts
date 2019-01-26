@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 
-import { Property } from './decorators';
+import { Property } from './property';
 import { genIoType } from './generator';
 
 describe('genIoType() function', () => {

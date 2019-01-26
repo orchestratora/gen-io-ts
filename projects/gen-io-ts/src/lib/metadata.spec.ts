@@ -1,4 +1,4 @@
-import { Property } from './decorators';
+import { Property } from './property';
 import { resolveMetadataOf } from './metadata';
 import { AnyOf } from './runtime-types';
 

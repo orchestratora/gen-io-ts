@@ -3,6 +3,6 @@
  */
 
 export * from './lib/generator';
-export * from './lib/decorators';
+export * from './lib/property';
 export * from './lib/runtime-types';
 export * from './lib/type-factories';
