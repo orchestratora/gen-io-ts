@@ -1,5 +1,23 @@
 # GenIoTs - Changelog
 
+# [2.0.0](https://github.com/orchestratora/gen-io-ts/compare/v1.1.1...v2.0.0) (2019-01-27)
+
+
+### Bug Fixes
+
+* **types:** properly pass arguments in anyOf factory ([57e45ce](https://github.com/orchestratora/gen-io-ts/commit/57e45ce))
+
+
+### Features
+
+* **io-ts:** make io-ts as a peerDependency ([cc312b2](https://github.com/orchestratora/gen-io-ts/commit/cc312b2))
+
+
+### BREAKING CHANGES
+
+* **io-ts:** Secondary entrypoint `/io-ts` has been removed. Now it's a peerDependency that
+consumer has to install.
+
 ## [1.1.1](https://github.com/orchestratora/gen-io-ts/compare/v1.1.0...v1.1.1) (2019-01-24)
 
 
