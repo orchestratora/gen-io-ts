@@ -107,21 +107,6 @@ class MyClass {
 
 _See: [`io-ts` Refinements](https://github.com/gcanti/io-ts#refinements) for more usage info._
 
-## Access `io-ts`
-
-If you need to access `io-ts` library but don't want to install it as a dependency
-you can import it from this library as a secondary entry-point:
-
-```ts
-import * as t from '@orchestrator/gen-io-ts/io-ts';
-
-t... // Now t is complete `io-ts` lib
-```
-
-_NOTE_: By default it will not be included in your bundle because it is
-shipped as a secondary entry point.
-It will be only included if you import it explicitly.
-
 ---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
