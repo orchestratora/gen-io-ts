@@ -1,5 +1,12 @@
 # GenIoTs
 
+[![Build Status](https://travis-ci.org/orchestratora/gen-io-ts.svg?branch=master)](https://travis-ci.org/orchestratora/gen-io-ts)
+[![Coverage](https://img.shields.io/codecov/c/github/orchestratora/gen-io-ts.svg?maxAge=2592000)](https://codecov.io/gh/orchestratora/gen-io-ts)
+[![Npm](https://img.shields.io/npm/v/@orchestrator/gen-io-ts.svg)](https://www.npmjs.com/package/@orchestrator/gen-io-ts)
+[![Npm Downloads](https://img.shields.io/npm/dt/@orchestrator/gen-io-ts.svg)](https://www.npmjs.com/package/@orchestrator/gen-io-ts)
+![Licence](https://img.shields.io/github/license/orchestratora/gen-io-ts.svg)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 > Generate [io-ts](https://github.com/gcanti/io-ts) codecs for classes by decorating props
 
 ## Installation
@@ -91,7 +98,9 @@ import * as t from 'io-ts';
 import { Property } from '@orchestrator/gen-io-ts';
 
 class MyClass {
-  @Property({ typeFactory: type => t.refine(type, str => str.length > 0, 'NotEmpty') }) // Will now allow only non empty strings
+  @Property({
+    typeFactory: type => t.refine(type, str => str.length > 0, 'NotEmpty'),
+  }) // Will now allow only non empty strings
   prop: string;
 }
 ```
