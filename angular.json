@@ -31,9 +31,7 @@
               "projects/gen-io-ts/tsconfig.lib.json",
               "projects/gen-io-ts/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**", "**/*.spec.ts"]
           }
         }
       }
