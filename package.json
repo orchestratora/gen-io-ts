@@ -33,7 +33,7 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "core-js": "^2.5.4",
-    "io-ts": "^1.6.4",
+    "io-ts": "^1.7.0",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },

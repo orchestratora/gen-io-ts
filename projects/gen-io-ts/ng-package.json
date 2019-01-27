@@ -7,6 +7,5 @@
     "umdModuleIds": {
       "io-ts": "ioTs"
     }
-  },
-  "whitelistedNonPeerDependencies": ["io-ts"]
+  }
 }

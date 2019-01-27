@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/orchestratora/gen-io-ts.git"
   },
-  "dependencies": {
-    "io-ts": "1.6.4"
+  "peerDependencies": {
+    "io-ts": "^1.7.0"
   }
 }
