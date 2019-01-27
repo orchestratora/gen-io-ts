@@ -11,7 +11,7 @@ export function typeOf<T>(type: T) {
  * Create instance of {@link AnyOf}
  */
 export function anyOf<T>(...types: T[]) {
-  return new AnyOf(types);
+  return new AnyOf(...types);
 }
 
 /**

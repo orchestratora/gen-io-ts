@@ -1,6 +1,6 @@
-import { Property } from './property';
 import { resolveMetadataOf } from './metadata';
-import { AnyOf } from './runtime-types';
+import { Property } from './property';
+import { anyOf } from './type-factories';
 
 describe('resolveMetadataOf() function', () => {
   it('should return resolved object with types', () => {
@@ -9,7 +9,7 @@ describe('resolveMetadataOf() function', () => {
       prop1: boolean;
       @Property()
       prop2: number;
-      @Property({ type: new AnyOf('lol', 'd') })
+      @Property({ type: anyOf('lol', 'd') })
       prop3: string[];
     }
     class MyClass {
