@@ -1,7 +1,7 @@
 import { Primitive } from './types';
 
 export function isPrimitive(obj: any): obj is Primitive {
-  return !obj || obj === null || (typeof obj !== 'object' && typeof obj !== 'function');
+  return !obj || (typeof obj !== 'object' && typeof obj !== 'function');
 }
 
 export function isFunction(obj: any): obj is Function {
