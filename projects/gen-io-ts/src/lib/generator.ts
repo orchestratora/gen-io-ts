@@ -21,12 +21,12 @@ function genTypeFor(obj: any, name?: string): t.Type<any> {
 
   let codec = genCodecType(type, name);
 
-  if (metadata && !metadata.isRequired) {
-    codec = t.union([codec, t.null, t.undefined]);
-  }
-
   if (metadata && metadata.typeFactory) {
     codec = metadata.typeFactory(codec);
+  }
+
+  if (metadata && !metadata.isRequired) {
+    codec = t.union([codec, t.null, t.undefined]);
   }
 
   return codec;

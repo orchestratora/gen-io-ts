@@ -106,7 +106,10 @@ describe('genIoType() function', () => {
 
     it('should enhance default type', () => {
       class MyClass {
-        @Property({ typeFactory: type => t.refinement(type, str => str.length > 1, 'NotEmpty') })
+        @Property({
+          typeFactory: type =>
+            t.refinement(type, str => str.length > 1, 'NotEmpty'),
+        })
         prop1: string;
       }
 
@@ -116,6 +119,37 @@ describe('genIoType() function', () => {
 
       expect(() => ThrowReporter.report(valid)).not.toThrow();
       expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
+
+    it('should respect required flag on custom type', () => {
+      class NonRequiredClass {
+        @Property({ typeFactory: () => t.boolean, isRequired: false })
+        prop1: string;
+      }
+
+      class RequiredClass {
+        @Property({ typeFactory: () => t.boolean, isRequired: true })
+        prop1: string;
+      }
+
+      const nonRequiredType = genIoType(NonRequiredClass);
+      const requiredType = genIoType(RequiredClass);
+
+      const prop1Valid = nonRequiredType.decode({ prop1: true });
+      const prop1Valid2 = nonRequiredType.decode({});
+      const prop1Invalid = nonRequiredType.decode({ prop1: 'no' });
+
+      const prop2Valid = requiredType.decode({ prop1: true });
+      const prop2Invalid = requiredType.decode({});
+      const prop2Invalid2 = requiredType.decode({ prop1: 'no' });
+
+      expect(() => ThrowReporter.report(prop1Valid)).not.toThrow();
+      expect(() => ThrowReporter.report(prop1Valid2)).not.toThrow();
+      expect(() => ThrowReporter.report(prop1Invalid)).toThrow();
+
+      expect(() => ThrowReporter.report(prop2Valid)).not.toThrow();
+      expect(() => ThrowReporter.report(prop2Invalid)).toThrow();
+      expect(() => ThrowReporter.report(prop2Invalid2)).toThrow();
     });
   });
 });
