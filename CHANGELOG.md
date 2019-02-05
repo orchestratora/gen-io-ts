@@ -1,5 +1,12 @@
 # GenIoTs - Changelog
 
+## [2.0.1](https://github.com/orchestratora/gen-io-ts/compare/v2.0.0...v2.0.1) (2019-02-05)
+
+
+### Bug Fixes
+
+* **generator:** apply not-required modifiers on custom types ([0b4ea8b](https://github.com/orchestratora/gen-io-ts/commit/0b4ea8b))
+
 # [2.0.0](https://github.com/orchestratora/gen-io-ts/compare/v1.1.1...v2.0.0) (2019-01-27)
 
 
