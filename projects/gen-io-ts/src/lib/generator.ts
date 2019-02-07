@@ -5,6 +5,16 @@ import { Primitive, Type } from './types';
 import { isBuiltinType, isObject, isPrimitive } from './util';
 
 /**
+ * Required to safely access from `io-ts` reserved exports like `undefined`
+ * because of the bug in rollup
+ * @see https://github.com/rollup/rollup/issues/2680
+ * @internal
+ */
+function getIoTs<K extends keyof typeof t>(prop: K) {
+  return t[prop];
+}
+
+/**
  * Generate `io-ts` codec for `type`
  *
  * To validate runtime object call `.validate(...)` on it
@@ -26,7 +36,7 @@ function genTypeFor(obj: any, name?: string): t.Type<any> {
   }
 
   if (metadata && !metadata.isRequired) {
-    codec = t.union([codec, t.null, t.undefined]);
+    codec = t.union([codec, getIoTs('null'), getIoTs('undefined')]);
   }
 
   return codec;
