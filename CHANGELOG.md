@@ -1,5 +1,12 @@
 # GenIoTs - Changelog
 
+# [2.1.0](https://github.com/orchestratora/gen-io-ts/compare/v2.0.2...v2.1.0) (2019-02-27)
+
+
+### Features
+
+* **libs:** update dependencies and fix deprecations ([33661d3](https://github.com/orchestratora/gen-io-ts/commit/33661d3))
+
 ## [2.0.2](https://github.com/orchestratora/gen-io-ts/compare/v2.0.1...v2.0.2) (2019-02-07)
 
 
