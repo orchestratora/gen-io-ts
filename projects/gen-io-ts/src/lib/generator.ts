@@ -75,7 +75,7 @@ function genArrayType<T extends any[]>(arr: T[], name?: string): t.Type<any> {
 
 function genLiteralType<T extends Primitive>(val: T, name?: string) {
   if (val === null || val === undefined) {
-    return t.any;
+    return t.unknown;
   }
 
   return t.literal(val);
@@ -93,10 +93,10 @@ function genBuiltinType(type: Function, name?: string) {
     case Function:
       return t.Function;
     case Array:
-      return t.array(t.any, name);
+      return t.array(t.unknown, name);
     case Object:
-      return t.any;
+      return t.unknown;
     default:
-      return t.any;
+      return t.unknown;
   }
 }
