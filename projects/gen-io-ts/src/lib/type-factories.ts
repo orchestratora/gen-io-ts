@@ -10,13 +10,13 @@ export function typeOf<T>(type: T) {
 /**
  * Create instance of {@link AnyOf}
  */
-export function anyOf<T>(...types: T[]) {
-  return new AnyOf(...types);
+export function anyOf<T extends any[]>(...types: T) {
+  return new AnyOf<T>(...types);
 }
 
 /**
  * Create instance of {@link ArrayOf}
  */
 export function arrayOf<T>(type: T) {
-  return new ArrayOf(type);
+  return new ArrayOf<T>(type);
 }

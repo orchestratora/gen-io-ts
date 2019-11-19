@@ -3,6 +3,7 @@ import { ThrowReporter } from 'io-ts/lib/ThrowReporter';
 
 import { Property } from './property';
 import { genIoType } from './generator';
+import { arrayOf, anyOf } from './type-factories';
 
 describe('genIoType() function', () => {
   it('should not validate non-annotated class', () => {
@@ -85,6 +86,36 @@ describe('genIoType() function', () => {
       const invalid = myClassType.decode({ prop1: 'why?' });
 
       expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
+
+    it('should override with proper array type via `arrayOf()`', () => {
+      class MyClass {
+        @Property({ type: arrayOf(String) })
+        prop1: string[];
+      }
+
+      const myClassType = genIoType(MyClass);
+      const valid = myClassType.decode({ prop1: ['a', 'b'] });
+      const invalid = myClassType.decode({ prop1: 'why?' });
+
+      expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(invalid)).toThrow();
+    });
+
+    it('should override with proper union type via `anyOf()`', () => {
+      class MyClass {
+        @Property({ type: anyOf(String, Number) })
+        prop1: string | number;
+      }
+
+      const myClassType = genIoType(MyClass);
+      const valid = myClassType.decode({ prop1: 'a' });
+      const valid2 = myClassType.decode({ prop1: 1 });
+      const invalid = myClassType.decode({ prop1: true });
+
+      expect(() => ThrowReporter.report(valid)).not.toThrow();
+      expect(() => ThrowReporter.report(valid2)).not.toThrow();
       expect(() => ThrowReporter.report(invalid)).toThrow();
     });
   });
