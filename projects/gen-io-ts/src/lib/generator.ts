@@ -70,7 +70,9 @@ function genObjectType<T extends Object>(obj: T, name?: string): t.Type<any> {
 
 function genArrayType<T extends any[]>(arr: T[], name?: string): t.Type<any> {
   const types = arr.map((el, i) => genTypeFor(el, i.toString()));
-  return t.union(types as any, name);
+  return types.length === 1
+    ? t.array(types[0], name)
+    : t.union(types as any, name);
 }
 
 function genLiteralType<T extends Primitive>(val: T, name?: string) {
