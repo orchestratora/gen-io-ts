@@ -1,5 +1,12 @@
 # GenIoTs - Changelog
 
+## [2.1.1](https://github.com/orchestratora/gen-io-ts/compare/v2.1.0...v2.1.1) (2019-11-20)
+
+
+### Bug Fixes
+
+* **gen:** generate proper array type for single type ([a5b075f](https://github.com/orchestratora/gen-io-ts/commit/a5b075f)), closes [#7](https://github.com/orchestratora/gen-io-ts/issues/7)
+
 # [2.1.0](https://github.com/orchestratora/gen-io-ts/compare/v2.0.2...v2.1.0) (2019-02-27)
 
 
