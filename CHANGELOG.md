@@ -1,5 +1,12 @@
 # GenIoTs - Changelog
 
+## [2.1.2](https://github.com/orchestratora/gen-io-ts/compare/v2.1.1...v2.1.2) (2019-12-15)
+
+
+### Bug Fixes
+
+* **metadata:** resolve Reflect API from `global` instead of `window` ([6d5ca97](https://github.com/orchestratora/gen-io-ts/commit/6d5ca97)), closes [#9](https://github.com/orchestratora/gen-io-ts/issues/9)
+
 ## [2.1.1](https://github.com/orchestratora/gen-io-ts/compare/v2.1.0...v2.1.1) (2019-11-20)
 
 
