@@ -1,5 +1,24 @@
 # GenIoTs - Changelog
 
+# [3.0.0](https://github.com/orchestratora/gen-io-ts/compare/v2.1.2...v3.0.0) (2020-03-08)
+
+
+### Bug Fixes
+
+* **reflect:** use globalThis to locate Reflect API globally ([65d5b13](https://github.com/orchestratora/gen-io-ts/commit/65d5b13fcc486cca67e773b0a8fa3c63f0777517))
+
+
+### Features
+
+* **build:** update to NG CLI v9 ([9040c64](https://github.com/orchestratora/gen-io-ts/commit/9040c6429bb9885073b78f4eb032943091199ecb))
+* **deps:** update io-ts to v2 ([3979f66](https://github.com/orchestratora/gen-io-ts/commit/3979f66bf341b667b0fa56bfc46c8ca2368b5b44))
+
+
+### BREAKING CHANGES
+
+* **deps:** io-ts now is v2 and it requires fp-ts v2 as a peer dependency. No public API
+changes.
+
 ## [2.1.2](https://github.com/orchestratora/gen-io-ts/compare/v2.1.1...v2.1.2) (2019-12-15)
 
 
