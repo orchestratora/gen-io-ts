@@ -1,5 +1,12 @@
 # GenIoTs - Changelog
 
+## [3.0.1](https://github.com/orchestratora/gen-io-ts/compare/v3.0.0...v3.0.1) (2020-03-08)
+
+
+### Bug Fixes
+
+* **metadata:** retrieve type lazily at generation time ([f5e0484](https://github.com/orchestratora/gen-io-ts/commit/f5e0484e380b05ca4097fd5eebdfb8a7d154e0a0))
+
 # [3.0.0](https://github.com/orchestratora/gen-io-ts/compare/v2.1.2...v3.0.0) (2020-03-08)
 
 
