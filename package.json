@@ -16,8 +16,9 @@
     "test:report": "cd coverage && codecov",
     "lint": "ng lint gen-io-ts",
     "e2e": "ng e2e",
-    "format": "npm-run-all -p format:*",
-    "format:code": "prettier --write \"projects/**/*.{ts,js,json,?css}\"",
+    "format": "npm run prettier -- --write",
+    "format:check": "npm run prettier -- --check",
+    "prettier": "prettier \"**/*.{{j,t}sx?,json,?css,html,md}\"",
     "pack": "copyfiles LICENSE README.md dist/gen-io-ts",
     "semantic-release": "semantic-release"
   },
@@ -91,12 +92,10 @@
   },
   "lint-staged": {
     "projects/**/*.{ts}": [
-      "tslint -p tsconfig.json -c tslint.json --fix",
-      "git add"
+      "tslint -p tsconfig.json -c tslint.json --fix"
     ],
     "projects/**/*.{ts,js,json,?css}": [
-      "prettier --write",
-      "git add"
+      "npm run format -- --files"
     ]
   }
 }
