@@ -10,7 +10,7 @@ export function provideReflect(reflectImpl: RequiredReflectApi) {
 
 /** @internal */
 export function getReflect(): RequiredReflectApi {
-  const reflect = _reflectImpl || (global as any).Reflect;
+  const reflect = _reflectImpl || (globalThis as any).Reflect;
 
   if (!reflect) {
     throw new Error(

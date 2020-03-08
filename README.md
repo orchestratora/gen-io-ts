@@ -15,6 +15,12 @@
 $ npm install --save @orchestrator/gen-io-ts
 ```
 
+_NOTE_: Library uses `globalThis` variable to get `Reflect` object.
+You can either provide it manually via `provideReflect()` function
+or make sure that `Reflect` API is loaded globally (via polyfills).
+
+If required - you may need to load [`globalThis` polyfill](https://github.com/es-shims/globalThis).
+
 ## Usage
 
 First decorate your properties that you want to validate:
