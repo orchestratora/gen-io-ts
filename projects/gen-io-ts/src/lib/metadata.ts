@@ -16,6 +16,11 @@ export interface TypeMetadata<T extends RuntimeType> {
   isRequired?: boolean;
 }
 
+export interface TypeMetadataLazy<T extends RuntimeType>
+  extends TypeMetadata<T> {
+  getType(): T | undefined;
+}
+
 export class ResolvedTypeMetadata<T> implements TypeMetadata<T> {
   meta: AsRuntimeType<T> = {} as any;
 
@@ -28,6 +33,10 @@ export class ResolvedTypeMetadata<T> implements TypeMetadata<T> {
     public isRequired = false,
     public typeFactory: TypeFactory<T> = identity,
   ) {}
+
+  getType() {
+    return this.type;
+  }
 }
 
 /**
@@ -63,11 +72,11 @@ function resolveMetaRecursive(obj: any) {
     Object.keys(metaInfo).forEach(key => {
       const meta = metaInfo[key];
       const metadata = new ResolvedTypeMetadata(
-        meta.type,
+        meta.getType(),
         meta.isRequired,
         meta.typeFactory,
       );
-      metadata.meta = resolveMetaRecursive(meta.type);
+      metadata.meta = resolveMetaRecursive(meta.getType());
       metaInfo[key] = metadata;
     });
   }
@@ -90,14 +99,14 @@ export function setPropertyType(
 
   const types = target[propMetaKey];
 
-  const type = options.type || typeOf(readPropType(target, prop));
+  const getType = () => options.type || typeOf(readPropType(target, prop));
 
-  types[prop] = mergePropertyMeta(types[prop], { ...options, type });
+  types[prop] = mergePropertyMeta(types[prop], { ...options, getType });
 }
 
 export function getPropertyTypes<T>(
   target: Type<T>,
-): StringHashMap<TypeMetadata<T>> {
+): StringHashMap<TypeMetadataLazy<T>> {
   return target.prototype[propMetaKey];
 }
 
@@ -106,8 +115,8 @@ export function readPropType(target: Object, prop: string | symbol): any {
 }
 
 export function mergePropertyMeta<T>(
-  meta1: TypeMetadata<T> = {},
-  meta2: TypeMetadata<T> = {},
+  meta1: TypeMetadata<T> | TypeMetadataLazy<T> = {},
+  meta2: TypeMetadata<T> | TypeMetadataLazy<T> = {},
 ): TypeMetadata<T> {
   return {
     ...meta1,
